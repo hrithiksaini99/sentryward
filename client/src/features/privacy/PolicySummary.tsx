@@ -3,6 +3,8 @@ import { Badge } from "@/components/ui/badge"
 import { LLM_PROVIDERS } from "@/features/llm-connections/providers"
 import type { WorkspacePrivacy } from "./api"
 
+export const formatDays = (days: number) => `${days} day${days === 1 ? "" : "s"}`;
+
 // An empty list allows everything. Saving checks that a workspace list stays
 // within the instance's, so a set workspace list is the narrower one.
 function narrower<T>(instance: T[], workspace: T[]): T[] {
@@ -71,7 +73,7 @@ export function PolicySummary({ data }: { data: WorkspacePrivacy }) {
         <span>{effective.localOnly ? "On" : "Off"}</span>
       </Row>
       <Row label="Review data kept" byInstance={retentionByInstance}>
-        <span>{effective.retentionDays === null ? "Forever" : `${effective.retentionDays} days`}</span>
+        <span>{effective.retentionDays === null ? "Forever" : formatDays(effective.retentionDays)}</span>
       </Row>
     </dl>
   )
